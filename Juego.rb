@@ -10,14 +10,16 @@ class Juego
   end
 
   def reglas(tablero, tablero_aux)
-    for y in 1..8
-      for x in 1..8
+    for y in 0..8
+      for x in 0..8
         contador_vecino = 0
         if tablero[x][y + 1] == 1
           contador_vecino += 1
         end
-        if tablero[x - 1][y + 1] == 1
-          contador_vecino += 1
+        if x > 0
+          if tablero[x - 1][y + 1] == 1
+            contador_vecino += 1
+          end
         end
         if tablero[x + 1][y + 1] == 1
           contador_vecino += 1
@@ -25,25 +27,40 @@ class Juego
         if tablero[x + 1][y] == 1
           contador_vecino += 1
         end
-        if tablero[x - 1][y] == 1
-          contador_vecino += 1
+        if x > 0
+          if tablero[x - 1][y] == 1
+            contador_vecino += 1
+          end
         end
-        if tablero[x - 1][y - 1] == 1
-          contador_vecino += 1
+        if x > 0 && y > 0
+          if tablero[x - 1][y - 1] == 1
+            contador_vecino += 1
+          end
         end
-        if tablero[x][y - 1] == 1
-          contador_vecino += 1
+        if y > 0
+          if tablero[x][y - 1] == 1
+            contador_vecino += 1
+          end
         end
-        if tablero[x + 1][y - 1] == 1
-          contador_vecino += 1
+        if y > 0
+          if tablero[x + 1][y - 1] == 1
+            contador_vecino += 1
+          end
         end
+
         if contador_vecino != 3 || contador_vecino != 2
           tablero_aux[x][y] = 0
         end
-        if contador_vecino == 3 || contador_vecino == 2
-          tablero_aux[x][y] = 1
+        if tablero[x][y] == 1
+          if contador_vecino == 3 || contador_vecino == 2
+            tablero_aux[x][y] = 1
+          end
         end
-        #print "con", contador_vecino, "x", x, "y", y, "\n"
+        if tablero[x][y] == 0
+          if contador_vecino == 3
+            tablero_aux[x][y] = 1
+          end
+        end
       end
     end
   end
