@@ -12,55 +12,55 @@ class Juego
   def reglas(tablero, tablero_aux)
     for y in 1..8
       for x in 1..8
-        contadorVecinos = 0
+        contador_vecino = 0
         xAuxiliar = x
         yAuxiliar = y + 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x - 1
         yAuxiliar = y + 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x + 1
         yAuxiliar = y + 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x + 1
         yAuxiliar = y
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x - 1
         yAuxiliar = y
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x - 1
         yAuxiliar = y - 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x
         yAuxiliar = y - 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
         xAuxiliar = x + 1
         yAuxiliar = y - 1
         if tablero[xAuxiliar][yAuxiliar] == 1
-          contadorVecinos = contadorVecinos + 1
+          contador_vecino += 1
         end
 
-        if contadorVecinos == 1 || contadorVecinos == 0 || contadorVecinos >= 4
+        if contador_vecino == 1 || contador_vecino == 0 || contador_vecino >= 4
           tablero_aux[x][y] = 0
         end
-        if contadorVecinos == 3 || contadorVecinos == 2
+        if contador_vecino == 3 || contador_vecino == 2
           tablero_aux[x][y] = 1
         end
-        print x, "x", y, "y", contadorVecinos, "cont \n"
+        #print x, "x", y, "y", contador_vecino, "cont \n"
       end
     end
   end
