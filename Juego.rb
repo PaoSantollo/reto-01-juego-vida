@@ -1,4 +1,4 @@
-class Juego
+class Tablero
   def imprimir_tablero(tablero)
     for i in 0..9
       for j in 0..9
@@ -8,8 +8,10 @@ class Juego
     end
     print "\n"
   end
+end
 
-  def reglas(tablero, tablero_aux)
+class Juego
+  def reglas(tablero, tablero_aux, contador_vecino)
     for y in 0..8
       for x in 0..8
         contador_vecino = 0
@@ -47,20 +49,13 @@ class Juego
             contador_vecino += 1
           end
         end
+        cel = Celula.new
+        cel.estado
+        celm = Muere.new
+        celv = Vive.new
 
-        if contador_vecino != 3 || contador_vecino != 2
-          tablero_aux[x][y] = 0
-        end
-        if tablero[x][y] == 1
-          if contador_vecino == 3 || contador_vecino == 2
-            tablero_aux[x][y] = 1
-          end
-        end
-        if tablero[x][y] == 0
-          if contador_vecino == 3
-            tablero_aux[x][y] = 1
-          end
-        end
+        celm.estado(contador_vecino, tablero_aux, x, y)
+        celv.estado(contador_vecino, tablero_aux, x, y, tablero)
       end
     end
   end
@@ -76,6 +71,34 @@ class Juego
   end
 end
 
+class Celula
+  def estado()
+  end
+end
+
+class Muere < Celula
+  def estado(contador_vecino, tablero_aux, x, y)
+    if contador_vecino != 3 || contador_vecino != 2
+      tablero_aux[x][y] = 0
+    end
+  end
+end
+
+class Vive < Celula
+  def estado(contador_vecino, tablero_aux, x, y, tablero)
+    if tablero[x][y] == 1
+      if contador_vecino == 3 || contador_vecino == 2
+        tablero_aux[x][y] = 1
+      end
+    end
+    if tablero[x][y] == 0
+      if contador_vecino == 3
+        tablero_aux[x][y] = 1
+      end
+    end
+  end
+end
+
 tablero = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -87,12 +110,14 @@ tablero = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
+contador_vecino = 0
 tablero_aux = Array.new(10) { Array.new(10) { 0 } }
 juego = Juego.new
-
+tab = Tablero.new
+cel = Celula.new
 for i in 0..9
   print "juego ", i, "\n"
-  juego.imprimir_tablero(tablero)
-  juego.reglas(tablero, tablero_aux)
+  tab.imprimir_tablero(tablero)
+  juego.reglas(tablero, tablero_aux, contador_vecino)
   juego.clonar_tablero(tablero, tablero_aux)
 end
